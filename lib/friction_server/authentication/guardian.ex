@@ -1,7 +1,7 @@
 defmodule FrictionServer.Authentication.Guardian do
   @moduledoc false
 
-  use Guardian, otp_app: :frictionServer
+  use Guardian, otp_app: :friction_server
 
   alias FrictionServer.{Repo, Accounts.User}
 

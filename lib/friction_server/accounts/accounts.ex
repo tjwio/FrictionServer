@@ -64,7 +64,7 @@ defmodule FrictionServer.Accounts do
   """
   def create_user(attrs \\ %{}) do
     %User{}
-    |> User.registration_changset(attrs)
+    |> User.registration_changeset(attrs)
     |> Repo.insert()
   end
 
