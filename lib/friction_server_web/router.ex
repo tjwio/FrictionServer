@@ -13,8 +13,19 @@ defmodule FrictionServerWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :authenticated do
+    plug FrictionServer.AuthPipeline
+  end
+
   scope "/", FrictionServerWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :api
+
+    post "/users/signup", UserController, :create
+
+    pipe_through :authenticated
+    get "/users", UserController, :show
+    put "/users", UserController, :update_user
+    delete "/users", UserController, :delete
 
     get "/", PageController, :index
   end
