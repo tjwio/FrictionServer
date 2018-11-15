@@ -14,7 +14,7 @@ defmodule FrictionServerWeb.Router do
   end
 
   pipeline :authenticated do
-    plug FrictionServer.AuthPipeline
+    plug FrictionServer.Pipelines.Auth
   end
 
   scope "/", FrictionServerWeb do
