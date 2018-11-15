@@ -22,6 +22,13 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:user_id]
 
+# Configures Guardian
+config :friction_server, FrictionServer.Guardian,
+       issuer: "friction_server",
+       ttl: { 30, :days },
+       allowed_drift: 2000,
+       secret_key: "9oci+UKjjuGCcbpqrTDdSHS+pDWKjO/o3slHuTnPzhvTwRTcLuNR10my4Y3v7A4q"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
