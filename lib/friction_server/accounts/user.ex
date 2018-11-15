@@ -24,7 +24,7 @@ defmodule FrictionServer.Accounts.User do
     |> validate_email
   end
 
-  def registration_changset(user, attrs) do
+  def registration_changeset(user, attrs) do
     user
     |> cast(attrs, [:name, :email, :image_url, :password])
     |> validate_required([:name, :email, :password])

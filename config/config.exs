@@ -23,7 +23,7 @@ config :logger, :console,
   metadata: [:user_id]
 
 # Configures Guardian
-config :friction_server, FrictionServer.Guardian,
+config :friction_server, FrictionServer.Authentication.Guardian,
        issuer: "friction_server",
        ttl: { 30, :days },
        allowed_drift: 2000,

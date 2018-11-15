@@ -17,10 +17,11 @@ defmodule FrictionServerWeb.Router do
     plug FrictionServer.Pipelines.Auth
   end
 
-  scope "/", FrictionServerWeb do
+  scope "/api/v1", FrictionServerWeb do
     pipe_through :api
 
     post "/users/signup", UserController, :create
+    post "/users/login", UserController, :login
 
     pipe_through :authenticated
     get "/users", UserController, :show

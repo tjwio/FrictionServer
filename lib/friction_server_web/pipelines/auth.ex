@@ -5,7 +5,7 @@ defmodule FrictionServer.Pipelines.Auth do
 
   use Guardian.Plug.Pipeline,
       otp_app: :friction_server,
-      module: FrictionServer.Guardian,
+      module: FrictionServer.Authentication.Guardian,
       error_handler: FrictionServer.Authentication.ErrorHandler
 
   plug(Guardian.Plug.VerifySession, claims: @claims)
