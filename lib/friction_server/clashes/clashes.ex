@@ -37,6 +37,10 @@ defmodule FrictionServer.Clashes do
   """
   def get_poll!(id), do: Repo.get!(Poll, id)
 
+  def get_latest_poll! do
+    Repo.one!(from x in Poll, order_by: [desc: x.inserted_at], limit: 1)
+  end
+
   @doc """
   Creates a poll.
 
