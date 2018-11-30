@@ -66,8 +66,8 @@ defmodule FrictionServer.Clashes do
   end
 
   def create_vote(user, attrs) do
-    user
-    |> Ecto.build_assoc(:votes)
+    attrs = attrs |> Map.put("user_id", user.id)
+    %Vote{}
     |> Vote.changeset(attrs)
     |> Repo.insert()
   end

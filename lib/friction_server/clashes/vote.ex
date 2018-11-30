@@ -20,8 +20,10 @@ defmodule FrictionServer.Clashes.Vote do
   """
   def changeset(struct, params) do
     struct
-    |> cast(params, [:poll_id, :option_id])
-    |> validate_required([:poll_id, :option_id])
+    |> cast(params, [:poll_id, :option_id, :user_id])
+    |> validate_required([:poll_id, :option_id, :user_id])
+    |> assoc_constraint(:user)
+    |> unique_constraint(:user, name: :user_poll_index)
   end
 
 end
