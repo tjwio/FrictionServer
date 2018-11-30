@@ -35,7 +35,7 @@ defmodule FrictionServerWeb.Router do
     put "/polls/:id", PollController, :update
     delete "/polls/:id", PollController, :delete
 
-    get "/", PageController, :index
+    post "/polls/vote", PollController, :vote
   end
 
   # Other scopes may use custom stacks.
