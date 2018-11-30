@@ -12,6 +12,7 @@ defmodule FrictionServer.Accounts.User do
     field :name, :string
     field :password, :string, virtual: true
     field :password_hash, :string
+    has_many :votes, FrictionServer.Clashes.Vote, foreign_key: :user_id
 
     timestamps()
   end

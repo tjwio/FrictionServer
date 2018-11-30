@@ -59,4 +59,11 @@ defmodule FrictionServerWeb.PollController do
     |> send_resp(200, Poison.encode!(%{message: "Success"}))
   end
 
+  def vote(conn, params) do
+    user = FrictionServer.Authentication.Guardian.Plug.current_resource(conn)
+
+    params = params |> Map.put("user_id", user.id)
+
+  end
+
 end
