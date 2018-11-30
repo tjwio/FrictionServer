@@ -1,6 +1,8 @@
 defmodule FrictionServerWeb.PollController do
   @moduledoc false
 
+  require Logger
+
   use FrictionServerWeb, :controller
 
   alias FrictionServer.Clashes
@@ -59,11 +61,26 @@ defmodule FrictionServerWeb.PollController do
     |> send_resp(200, Poison.encode!(%{message: "Success"}))
   end
 
-  def vote(conn, params) do
+  def add_vote(conn, params) do
     user = FrictionServer.Authentication.Guardian.Plug.current_resource(conn)
 
-    params = params |> Map.put("user_id", user.id)
+    case Clashes.create_vote(user, params) do
+      {:ok, vote} ->
+        conn
+        |> send_resp(200, Poison.encode!(vote))
+      {:error, _error} ->
+        conn
+        |> send_resp(400, Poison.encode!(%{message: "Failed to create vote"}))
+    end
+  end
 
+  def show_votes(conn, params) do
+    user = FrictionServer.Authentication.Guardian.Plug.current_resource(conn)
+
+    votes = Clashes.get_votes(user)
+
+    conn
+    |> send_resp(200, Poison.encode!(votes))
   end
 
 end
