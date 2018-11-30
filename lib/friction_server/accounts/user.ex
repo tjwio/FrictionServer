@@ -4,7 +4,7 @@ defmodule FrictionServer.Accounts.User do
 
   @primary_key {:id, :binary_id, autogenerate: true}
 
-  @derive {Poison.Encoder, except: [:__meta__, :password, :password_hash]}
+  @derive {Poison.Encoder, except: [:__meta__, :password, :password_hash, :votes]}
 
   schema "users" do
     field :email, :string
