@@ -10,7 +10,7 @@ defmodule FrictionServer.Clashes.Poll do
 
   schema "polls" do
     field :name, :string
-    embeds_many :options, FrictionServer.Clashes.Option
+    has_many :options, FrictionServer.Clashes.Option
 
     timestamps()
   end
@@ -19,7 +19,7 @@ defmodule FrictionServer.Clashes.Poll do
   def changeset(poll, attrs) do
     poll
     |> cast(attrs, [:name])
-    |> cast_embed(:options)
+    |> cast_assoc(:options)
     |> validate_required([:name, :options])
     |> validate_length(:options, min: @min_options)
   end
