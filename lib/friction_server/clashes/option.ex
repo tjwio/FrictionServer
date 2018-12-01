@@ -23,4 +23,10 @@ defmodule FrictionServer.Clashes.Option do
     |> assoc_constraint(:poll)
     |> validate_required([:name])
   end
+
+  defimpl Poison.Encoder, for: FrictionServer.Clashes.Option do
+    def encode(poll_option, options) do
+      Poison.Encoder.Map.encode(%{name: poll_option.name, vote_count: Enum.count(poll_option.votes)}, options)
+    end
+  end
 end

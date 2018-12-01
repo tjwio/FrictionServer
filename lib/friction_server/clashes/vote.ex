@@ -5,7 +5,7 @@ defmodule FrictionServer.Clashes.Vote do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
-  @derive {Poison.Encoder, except: [:__meta__, :user]}
+  @derive {Poison.Encoder, except: [:__meta__, :user, :option]}
 
   schema "votes" do
     field :poll_id, :string
