@@ -19,6 +19,7 @@ defmodule FrictionServer.Clashes do
   """
   def list_polls do
     Repo.all(Poll)
+    |> Repo.preload([:options])
   end
 
   @doc """
@@ -35,10 +36,11 @@ defmodule FrictionServer.Clashes do
       ** (Ecto.NoResultsError)
 
   """
-  def get_poll!(id), do: Repo.get!(Poll, id)
+  def get_poll!(id), do: Repo.get!(Poll, id) |> Repo.preload([:options])
 
   def get_latest_poll! do
     Repo.one!(from x in Poll, order_by: [desc: x.inserted_at], limit: 1)
+    |> Repo.preload([:options])
   end
 
   def get_votes(user) do
