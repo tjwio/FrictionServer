@@ -29,6 +29,13 @@ config :friction_server, FrictionServer.Authentication.Guardian,
        allowed_drift: 2000,
        secret_key: "9oci+UKjjuGCcbpqrTDdSHS+pDWKjO/o3slHuTnPzhvTwRTcLuNR10my4Y3v7A4q"
 
+config :pigeon, :apns,
+       apns_default: %{
+         cert: "production_io.tjw.friction.pem",
+         key: "production_io.tjw.friction.pkey",
+         mode: :dev
+       }
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
