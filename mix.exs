@@ -45,7 +45,9 @@ defmodule FrictionServer.Mixfile do
       {:guardian, "~> 1.0"},
       {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.0.6"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:pigeon, "~> 1.2.3"},
+      {:kadabra, "~> 0.4.3"}
     ]
   end
 
