@@ -26,9 +26,17 @@ defmodule FrictionServerWeb.Router do
     pipe_through :authenticated
     get "/users", UserController, :show
     put "/users", UserController, :update_user
-    delete "/users", UserController, :delete
+    delete "/users/:id", UserController, :delete
 
-    get "/", PageController, :index
+    get "/polls", PollController, :show_all
+    get "/polls/latest", PollController, :show_latest
+    get "/polls/:id", PollController, :show
+    post "/polls", PollController, :create
+    put "/polls/:id", PollController, :update
+    delete "/polls/:id", PollController, :delete
+
+    post "/votes", PollController, :add_vote
+    get "/votes", PollController, :show_votes
   end
 
   # Other scopes may use custom stacks.

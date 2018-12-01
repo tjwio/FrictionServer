@@ -4,7 +4,7 @@ defmodule FrictionServer.Accounts.User do
 
   @primary_key {:id, :binary_id, autogenerate: true}
 
-  @derive {Poison.Encoder, except: [:__meta__, :password, :password_hash]}
+  @derive {Poison.Encoder, except: [:__meta__, :password, :password_hash, :votes]}
 
   schema "users" do
     field :email, :string
@@ -12,6 +12,7 @@ defmodule FrictionServer.Accounts.User do
     field :name, :string
     field :password, :string, virtual: true
     field :password_hash, :string
+    has_many :votes, FrictionServer.Clashes.Vote, foreign_key: :user_id
 
     timestamps()
   end
