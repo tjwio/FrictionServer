@@ -26,7 +26,7 @@ defmodule FrictionServer.Clashes.Option do
 
   defimpl Poison.Encoder, for: FrictionServer.Clashes.Option do
     def encode(poll_option, options) do
-      Poison.Encoder.Map.encode(%{name: poll_option.name, vote_count: Enum.count(poll_option.votes)}, options)
+      Poison.Encoder.Map.encode(%{id: poll_option.id, name: poll_option.name, vote_count: Enum.count(poll_option.votes)}, options)
     end
   end
 end
