@@ -9,7 +9,7 @@ defmodule FrictionServer.Clashes.Vote do
 
   schema "votes" do
     field :poll_id, :string
-    belongs_to :option, FrictionServer.Clashes.Opption, foreign_key: :option_id
+    belongs_to :option, FrictionServer.Clashes.Option, foreign_key: :option_id
     belongs_to :user, FrictionServer.Accounts.User, foreign_key: :user_id
 
     timestamps

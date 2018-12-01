@@ -5,11 +5,11 @@ defmodule FrictionServerWeb.TokenController do
   alias FrictionServer.Notifications.Token
 
   def add_token(conn, %{"udid" => udid} = params) do
-    case Notifications.get_token_by_udid!(udid) do
-      token ->
-        update_token(conn, token, params)
+    case Notifications.get_token_by_udid(udid) do
       nil ->
         add_token_helper(conn, params)
+      token ->
+        update_token(conn, token, params)
     end
   end
 

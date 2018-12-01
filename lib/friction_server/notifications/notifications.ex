@@ -41,7 +41,7 @@ defmodule FrictionServer.Notifications do
   """
   def get_token!(id), do: Repo.get!(Token, id)
 
-  def get_token_by_udid!(udid), do: Repo.get_by!(Token, udid: udid)
+  def get_token_by_udid(udid), do: Repo.get_by(Token, udid: udid)
 
   @doc """
   Creates a token.
@@ -116,13 +116,13 @@ defmodule FrictionServer.Notifications do
   defp send_notification(notification, token) do
     packet = Pigeon.APNS.Notification.new(notification, token, @app_bundle_id)
         |> Pigeon.APNS.Notification.put_badge(1)
-    Pigeon.APNS.push(packet, on_response: &on_notification_response/1)
+    Pigeon.APNS.push(packet, on_response: fn response -> on_notification_response(response) end)
   end
 
   defp on_notification_response(response) do
     case response do
       :success ->
-        Logger.debug "Push successful!"
+        Logger.info "Push successful!"
       :bad_device_token ->
         Logger.error "Bad device token!"
       _error ->

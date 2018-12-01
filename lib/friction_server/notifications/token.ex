@@ -2,6 +2,7 @@ defmodule FrictionServer.Notifications.Token do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Poison.Encoder, except: [:__meta__]}
 
   schema "tokens" do
     field :token, :string

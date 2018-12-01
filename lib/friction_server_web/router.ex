@@ -23,6 +23,8 @@ defmodule FrictionServerWeb.Router do
     post "/users/signup", UserController, :create
     post "/users/login", UserController, :login
 
+    post "/token", TokenController, :add_token
+
     pipe_through :authenticated
     get "/users", UserController, :show
     put "/users", UserController, :update_user
@@ -38,8 +40,6 @@ defmodule FrictionServerWeb.Router do
     post "/votes", PollController, :add_vote
     put "/votes/:id", PollController, :update_vote
     get "/votes", PollController, :show_votes
-
-    post "/token", TokenController, :add_token
   end
 
   # Other scopes may use custom stacks.

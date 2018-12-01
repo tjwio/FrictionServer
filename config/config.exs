@@ -33,7 +33,7 @@ config :pigeon, :apns,
        apns_default: %{
          cert: "production_io.tjw.friction.pem",
          key: "production_io.tjw.friction.pkey",
-         mode: :dev
+         mode: :prod
        }
 
 # Import environment specific config. This must remain at the bottom
