@@ -49,7 +49,7 @@ defmodule FrictionServerWeb.PollController do
         |> send_resp(200, Poison.encode!(poll))
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> send_resp(400, Poison.encode(message: "Failed to update poll"))
+        |> send_resp(400, Poison.encode!(message: "Failed to update poll"))
     end
   end
 
@@ -71,6 +71,19 @@ defmodule FrictionServerWeb.PollController do
       {:error, _error} ->
         conn
         |> send_resp(400, Poison.encode!(%{message: "Failed to create vote"}))
+    end
+  end
+
+  def update_vote(conn, %{"id" => vote_id} = params) do
+    vote = Clashes.get_vote!(vote_id)
+
+    case Clashes.update_vote(vote, params) do
+      {:ok, vote} ->
+        conn
+        |> send_resp(200, Poison.encode!(vote))
+      {:error, _changeset} ->
+        conn
+        |> send_resp(400, Poison.encode!(message: "Failed to update vote"))
     end
   end
 

@@ -38,6 +38,8 @@ defmodule FrictionServer.Clashes do
   """
   def get_poll!(id), do: Repo.get!(Poll, id) |> Repo.preload([:options, options: :votes])
 
+  def get_vote!(id), do: Repo.get!(Vote, id)
+
   def get_latest_poll! do
     Repo.one!(from x in Poll, order_by: [desc: x.inserted_at], limit: 1)
     |> Repo.preload([:options, options: :votes])
@@ -89,6 +91,12 @@ defmodule FrictionServer.Clashes do
   def update_poll(%Poll{} = poll, attrs) do
     poll
     |> Poll.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def update_vote(%Vote{} = vote, attrs) do
+    vote
+    |> Vote.changeset(attrs)
     |> Repo.update()
   end
 
