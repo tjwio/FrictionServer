@@ -5,6 +5,7 @@ defmodule FrictionServer.Notifications.Token do
 
   schema "tokens" do
     field :token, :string
+    field :udid, :string
 
     timestamps()
   end
@@ -12,7 +13,7 @@ defmodule FrictionServer.Notifications.Token do
   @doc false
   def changeset(token, attrs) do
     token
-    |> cast(attrs, [:token])
-    |> validate_required([:token])
+    |> cast(attrs, [:token, :udid])
+    |> validate_required([:token, :udid])
   end
 end
