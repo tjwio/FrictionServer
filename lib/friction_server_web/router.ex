@@ -36,6 +36,7 @@ defmodule FrictionServerWeb.Router do
     delete "/polls/:id", PollController, :delete
 
     post "/votes", PollController, :add_vote
+    put "/votes/:id", PollController, :update_vote
     get "/votes", PollController, :show_votes
   end
 
