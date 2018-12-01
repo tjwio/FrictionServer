@@ -32,6 +32,9 @@ defmodule FrictionServerWeb.PollController do
   def create(conn, params) do
     case Clashes.create_poll(params) do
       {:ok, poll} ->
+        poll = FrictionServer.Repo.preload(poll, [:options, options: :votes])
+
+        FrictionServer.Notifications.send_notification("New poll! " <> poll.name)
         conn
         |> send_resp(200, Poison.encode!(poll))
       {:error, _error} ->
