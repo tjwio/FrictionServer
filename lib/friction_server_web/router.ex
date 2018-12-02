@@ -40,6 +40,8 @@ defmodule FrictionServerWeb.Router do
     post "/votes", PollController, :add_vote
     put "/votes/:id", PollController, :update_vote
     get "/votes", PollController, :show_votes
+
+    post "/upload/image", UploadController, :upload
   end
 
   # Other scopes may use custom stacks.

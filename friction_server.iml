@@ -13,6 +13,8 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/decimal" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ecto" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/elixir_make" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ex_aws" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ex_aws_s3" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/file_system" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/gen_stage" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/gettext" />
@@ -42,7 +44,9 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/postgrex" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ranch" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ssl_verify_fun" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/sweet_xml" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/unicode_util_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/uuid" />
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/base64url" />
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/bcrypt_elixir" />
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/comeonin" />
@@ -122,5 +126,10 @@
     <orderEntry type="library" name="mimic" level="project" />
     <orderEntry type="library" name="httparrot" level="project" />
     <orderEntry type="library" name="keccakf1600" level="project" />
+    <orderEntry type="library" name="ex_aws" level="project" />
+    <orderEntry type="library" name="ex_aws_s3" level="project" />
+    <orderEntry type="library" name="sweet_xml" level="project" />
+    <orderEntry type="library" name="bypass" level="project" />
+    <orderEntry type="library" name="uuid" level="project" />
   </component>
 </module>

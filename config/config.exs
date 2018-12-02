@@ -29,6 +29,15 @@ config :friction_server, FrictionServer.Authentication.Guardian,
        allowed_drift: 2000,
        secret_key: "9oci+UKjjuGCcbpqrTDdSHS+pDWKjO/o3slHuTnPzhvTwRTcLuNR10my4Y3v7A4q"
 
+config :ex_aws,
+       access_key_id: System.get_env("AWS_ACCESS_KEY_ID"),
+       secret_access_key: System.get_env("AWS_SECRET_ACCESS_KEY"),
+       s3: [
+         scheme: "https://",
+         host: "s3-elixir.s3.amazonaws.com",
+         region: System.get_env("AWS_REGION")
+       ]
+
 config :pigeon, :apns,
        apns_default: %{
          cert: """
