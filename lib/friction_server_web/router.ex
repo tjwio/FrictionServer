@@ -23,6 +23,8 @@ defmodule FrictionServerWeb.Router do
     post "/users/signup", UserController, :create
     post "/users/login", UserController, :login
 
+    post "/token", TokenController, :add_token
+
     pipe_through :authenticated
     get "/users", UserController, :show
     put "/users", UserController, :update_user

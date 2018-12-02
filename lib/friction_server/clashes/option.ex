@@ -14,6 +14,7 @@ defmodule FrictionServer.Clashes.Option do
     belongs_to :poll, FrictionServer.Clashes.Poll
     has_many :votes, FrictionServer.Clashes.Vote, foreign_key: :option_id
 
+    timestamps()
   end
 
   @doc false
