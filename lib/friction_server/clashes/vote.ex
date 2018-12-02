@@ -12,7 +12,7 @@ defmodule FrictionServer.Clashes.Vote do
     belongs_to :option, FrictionServer.Clashes.Option, foreign_key: :option_id
     belongs_to :user, FrictionServer.Accounts.User, foreign_key: :user_id
 
-    timestamps
+    timestamps()
   end
 
   @doc """

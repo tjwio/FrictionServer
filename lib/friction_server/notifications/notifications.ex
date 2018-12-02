@@ -110,13 +110,13 @@ defmodule FrictionServer.Notifications do
 
   def send_notification(notification) do
     list_tokens()
-    |> Enum.each(fn token -> send_notification(notification, token) end)
+    |> Enum.each(fn token -> send_notification(notification, token.token) end)
   end
 
   defp send_notification(notification, token) do
     packet = Pigeon.APNS.Notification.new(notification, token, @app_bundle_id)
         |> Pigeon.APNS.Notification.put_badge(1)
-    Pigeon.APNS.push(packet, on_response: fn response -> on_notification_response(response) end)
+    Pigeon.APNS.push(packet, on_response: &on_notification_response/1)
   end
 
   defp on_notification_response(response) do
