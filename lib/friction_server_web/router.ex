@@ -27,7 +27,7 @@ defmodule FrictionServerWeb.Router do
 
     pipe_through :authenticated
     get "/users", UserController, :show
-    put "/users", UserController, :update_user
+    put "/users", UserController, :update
     delete "/users/:id", UserController, :delete
 
     get "/polls", PollController, :show_all
@@ -40,6 +40,8 @@ defmodule FrictionServerWeb.Router do
     post "/votes", PollController, :add_vote
     put "/votes/:id", PollController, :update_vote
     get "/votes", PollController, :show_votes
+
+    post "/upload/image", UploadController, :upload
   end
 
   # Other scopes may use custom stacks.
