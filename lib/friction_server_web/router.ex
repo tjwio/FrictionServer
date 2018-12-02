@@ -27,7 +27,7 @@ defmodule FrictionServerWeb.Router do
 
     pipe_through :authenticated
     get "/users", UserController, :show
-    put "/users", UserController, :update_user
+    put "/users", UserController, :update
     delete "/users/:id", UserController, :delete
 
     get "/polls", PollController, :show_all
