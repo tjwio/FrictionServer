@@ -47,7 +47,12 @@ defmodule FrictionServer.Mixfile do
       {:bcrypt_elixir, "~> 1.0.6"},
       {:poison, "~> 3.1"},
       {:pigeon, "~> 1.2.3"},
-      {:kadabra, "~> 0.4.3"}
+      {:kadabra, "~> 0.4.3"},
+      {:ex_aws, "~> 2.1"},
+      {:ex_aws_s3, "~> 2.0"},
+      {:hackney, "~> 1.9"},
+      {:sweet_xml, "~> 0.6"},
+      {:uuid, "~> 1.1.8"}
     ]
   end
 
