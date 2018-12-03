@@ -1,7 +1,7 @@
 defmodule FrictionServerWeb.MessageController do
   @moduledoc false
 
-  alias FrictionServer.Clashes
+  alias FrictionServer.{Clashes, Repo}
 
   use FrictionServerWeb, :controller
 
@@ -10,6 +10,7 @@ defmodule FrictionServerWeb.MessageController do
 
     case Clashes.update_message(message, %{claps: claps}) do
       {:ok, message} ->
+        message = Repo.preload(message, [:user])
         conn
         |> send_resp(200, Poison.encode!(message))
       {:error, %Ecto.Changeset{} = changeset} ->
