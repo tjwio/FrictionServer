@@ -51,6 +51,8 @@ defmodule FrictionServer.Clashes do
     user.votes
   end
 
+  def get_message!(id), do: Repo.get!(Message, id)
+
   def get_messages(poll) do
     poll = Repo.preload poll, :messages
 
@@ -109,6 +111,12 @@ defmodule FrictionServer.Clashes do
   def update_vote(%Vote{} = vote, attrs) do
     vote
     |> Vote.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def update_message(%Message{} = message, attrs) do
+    message
+    |> Message.changeset(attrs)
     |> Repo.update()
   end
 
