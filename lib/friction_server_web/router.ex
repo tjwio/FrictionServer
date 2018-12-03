@@ -41,6 +41,8 @@ defmodule FrictionServerWeb.Router do
     put "/votes/:id", PollController, :update_vote
     get "/votes", PollController, :show_votes
 
+    get "/polls/:id/messages", PollController, :get_messages
+
     post "/upload/image", UploadController, :upload
   end
 
