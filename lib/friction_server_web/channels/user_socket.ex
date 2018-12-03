@@ -1,6 +1,8 @@
 defmodule FrictionServerWeb.UserSocket do
   use Phoenix.Socket
 
+  require Logger
+
   ## Channels
    channel "room:lobby", FrictionServerWeb.RoomChannel
 
@@ -20,9 +22,11 @@ defmodule FrictionServerWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   def connect(%{"token" => token}, socket) do
-    case Guardian.Phoenix.Socket.authenticate(socket, FrictionServer.Guardian, token) do
-      {:ok, authed_socket} -> {:ok, authed_socket}
-      {:error, _} -> :error
+    case Guardian.Phoenix.Socket.authenticate(socket, FrictionServer.Authentication.Guardian, token) do
+      {:ok, authed_socket} ->
+        {:ok, authed_socket}
+      {:error, _error} ->
+        :error
     end
   end
 

@@ -1,6 +1,8 @@
 defmodule FrictionServerWeb.MessageController do
   @moduledoc false
 
+  alias FrictionServer.Clashes
+
   use FrictionServerWeb, :controller
 
   def add_claps(conn, %{"id" => message_id, "claps" => claps}) do

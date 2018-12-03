@@ -26,4 +26,10 @@ defmodule FrictionServer.Clashes.Message do
     |> assoc_constraint(:option)
     |> assoc_constraint(:poll)
   end
+
+  defimpl Poison.Encoder, for: FrictionServer.Clashes.Message do
+    def encode(message, options) do
+      Poison.Encoder.Map.encode(%{message: message.message, claps: message.claps, poll_id: message.poll_id, option_id: message.option_id, name: message.user.name, image_url: message.user.image_url, inserted_at: message.inserted_at}, options)
+    end
+  end
 end
