@@ -6,7 +6,7 @@ defmodule FrictionServer.Clashes do
   import Ecto.Query, warn: false
   alias FrictionServer.Repo
 
-  alias FrictionServer.Clashes.{Poll, Vote}
+  alias FrictionServer.Clashes.{Poll, Message, Vote}
 
   @doc """
   Returns the list of polls.
@@ -51,6 +51,12 @@ defmodule FrictionServer.Clashes do
     user.votes
   end
 
+  def get_messages(poll) do
+    poll = Repo.preload poll, :messages
+
+    poll.messages
+  end
+
   @doc """
   Creates a poll.
 
@@ -73,6 +79,12 @@ defmodule FrictionServer.Clashes do
     attrs = attrs |> Map.put("user_id", user.id)
     %Vote{}
     |> Vote.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def create_message(attrs) do
+    %Message{}
+    |> Message.changeset(attrs)
     |> Repo.insert()
   end
 
