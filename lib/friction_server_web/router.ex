@@ -13,10 +13,37 @@ defmodule FrictionServerWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", FrictionServerWeb do
-    pipe_through :browser # Use the default browser stack
+  pipeline :authenticated do
+    plug FrictionServer.Pipelines.Auth
+  end
 
-    get "/", PageController, :index
+  scope "/api/v1", FrictionServerWeb do
+    pipe_through :api
+
+    post "/users/signup", UserController, :create
+    post "/users/login", UserController, :login
+
+    post "/token", TokenController, :add_token
+
+    pipe_through :authenticated
+    get "/users", UserController, :show
+    put "/users", UserController, :update
+    delete "/users/:id", UserController, :delete
+
+    get "/polls", PollController, :show_all
+    get "/polls/latest", PollController, :show_latest
+    get "/polls/:id", PollController, :show
+    post "/polls", PollController, :create
+    put "/polls/:id", PollController, :update
+    delete "/polls/:id", PollController, :delete
+
+    post "/votes", PollController, :add_vote
+    put "/votes/:id", PollController, :update_vote
+    get "/votes", PollController, :show_votes
+
+    get "/polls/:id/messages", PollController, :get_messages
+
+    post "/upload/image", UploadController, :upload
   end
 
   # Other scopes may use custom stacks.
