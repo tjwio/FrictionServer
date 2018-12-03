@@ -11,6 +11,9 @@ defmodule FrictionServerWeb.MessageController do
     case Clashes.update_message(message, %{claps: message.claps + claps}) do
       {:ok, message} ->
         message = Repo.preload(message, [:user])
+
+        FrictionServer.Endpoint.broadcast("room:lobby", "claps", Clashes.Messages.map(message))
+
         conn
         |> send_resp(200, Poison.encode!(message))
       {:error, %Ecto.Changeset{} = changeset} ->
