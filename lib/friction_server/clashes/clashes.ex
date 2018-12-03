@@ -54,7 +54,7 @@ defmodule FrictionServer.Clashes do
   def get_message!(id), do: Repo.get!(Message, id)
 
   def get_messages(poll) do
-    poll = Repo.preload poll, :messages
+    poll = Repo.preload poll, [:messages, messages: :user]
 
     poll.messages
   end
