@@ -4,13 +4,14 @@ defmodule FrictionServer.Clashes.Poll do
 
   @primary_key {:id, :binary_id, autogenerate: true}
 
-  @derive {Poison.Encoder, except: [:__meta__]}
+  @derive {Poison.Encoder, except: [:__meta__, :messages]}
 
   @min_options 1
 
   schema "polls" do
     field :name, :string
     has_many :options, FrictionServer.Clashes.Option
+    has_many :messages, FrictionServer.Clashes.Message
 
     timestamps()
   end

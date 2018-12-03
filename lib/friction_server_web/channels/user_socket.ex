@@ -1,8 +1,10 @@
 defmodule FrictionServerWeb.UserSocket do
   use Phoenix.Socket
 
+  require Logger
+
   ## Channels
-  # channel "room:*", FrictionServerWeb.RoomChannel
+   channel "room:lobby", FrictionServerWeb.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -19,8 +21,17 @@ defmodule FrictionServerWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket) do
+    case Guardian.Phoenix.Socket.authenticate(socket, FrictionServer.Authentication.Guardian, token) do
+      {:ok, authed_socket} ->
+        {:ok, authed_socket}
+      {:error, _error} ->
+        :error
+    end
+  end
+
+  def connect(_params, _socket) do
+    :error
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
