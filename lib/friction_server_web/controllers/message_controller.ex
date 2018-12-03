@@ -8,7 +8,7 @@ defmodule FrictionServerWeb.MessageController do
   def add_claps(conn, %{"id" => message_id, "claps" => claps}) do
     message = Clashes.get_message!(message_id)
 
-    case Clashes.update_message(message, %{claps: claps}) do
+    case Clashes.update_message(message, %{claps: message.claps + claps}) do
       {:ok, message} ->
         message = Repo.preload(message, [:user])
         conn
