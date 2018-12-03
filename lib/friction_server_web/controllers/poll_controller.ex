@@ -29,6 +29,14 @@ defmodule FrictionServerWeb.PollController do
     |> send_resp(200, Poison.encode!(poll))
   end
 
+  def get_messages(conn, %{"id" => poll_id}) do
+    poll = Clashes.get_poll!(poll_id)
+    messages = Clashes.get_messages(poll)
+
+    conn
+    |> send_resp(200, Poison.encode!(messages))
+  end
+
   def create(conn, params) do
     case Clashes.create_poll(params) do
       {:ok, poll} ->
