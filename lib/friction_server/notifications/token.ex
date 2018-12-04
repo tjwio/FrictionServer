@@ -16,5 +16,7 @@ defmodule FrictionServer.Notifications.Token do
     token
     |> cast(attrs, [:token, :udid])
     |> validate_required([:token, :udid])
+    |> unique_constraint(:token)
+    |> unique_constraint(:udid)
   end
 end
