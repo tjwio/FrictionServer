@@ -41,6 +41,8 @@ defmodule FrictionServer.Notifications do
   """
   def get_token!(id), do: Repo.get!(Token, id)
 
+  def get_token_by_token(token), do: Repo.get_by(Token, token: token)
+
   def get_token_by_udid(udid), do: Repo.get_by(Token, udid: udid)
 
   @doc """
