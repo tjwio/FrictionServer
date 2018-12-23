@@ -59,11 +59,11 @@ defmodule FrictionServer.Clashes do
     poll.messages
   end
 
-  def get_claps(poll) do
+  def get_stats(poll) do
     poll = FrictionServer.Repo.preload(poll, [:options, options: :messages])
 
     Enum.map(poll.options, fn option ->
-      %{option_id: option.id, claps: Enum.sum(Enum.map(option.messages, fn message -> message.claps end))}
+      %{option_id: option.id, claps: Enum.sum(Enum.map(option.messages, fn message -> message.claps end)), messages: Enum.count(option.messages)}
     end)
   end
 
