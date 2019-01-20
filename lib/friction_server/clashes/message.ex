@@ -10,6 +10,7 @@ defmodule FrictionServer.Clashes.Message do
   schema "messages" do
     field :message, :string
     field :claps, :integer, default: 0
+    field :dislikes, :integer, default: 0
     belongs_to :poll, FrictionServer.Clashes.Option, foreign_key: :poll_id
     belongs_to :option, FrictionServer.Clashes.Option, foreign_key: :option_id
     belongs_to :user, FrictionServer.Accounts.User, foreign_key: :user_id
@@ -20,7 +21,7 @@ defmodule FrictionServer.Clashes.Message do
   @doc false
   def changeset(message, attrs) do
     message
-    |> cast(attrs, [:message, :claps, :poll_id, :option_id, :user_id])
+    |> cast(attrs, [:message, :claps, :dislikes, :poll_id, :option_id, :user_id])
     |> validate_required([:message, :poll_id, :option_id, :user_id])
     |> assoc_constraint(:user)
     |> assoc_constraint(:option)
@@ -28,7 +29,7 @@ defmodule FrictionServer.Clashes.Message do
   end
 
   def map(message) do
-    %{id: message.id, message: message.message, claps: message.claps, poll_id: message.poll_id, option_id: message.option_id, name: message.user.name, image_url: message.user.image_url, inserted_at: message.inserted_at}
+    %{id: message.id, message: message.message, claps: message.claps, dislikes: message.dislikes, poll_id: message.poll_id, option_id: message.option_id, name: message.user.name, image_url: message.user.image_url, inserted_at: message.inserted_at}
   end
 
   defimpl Poison.Encoder, for: FrictionServer.Clashes.Message do
