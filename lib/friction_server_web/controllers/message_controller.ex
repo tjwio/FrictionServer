@@ -25,7 +25,14 @@ defmodule FrictionServerWeb.MessageController do
   def add_dislikes(conn, %{"id" => message_id, "dislikes" => dislikes}) do
     message = Clashes.get_message!(message_id)
 
-    case Clashes.update_message(message, %{dislikes: message.dislikes + dislikes}) do
+    dislikes = case message.dislikes do
+      nil ->
+        0
+      downclaps ->
+        downclaps
+    end
+
+    case Clashes.update_message(message, %{dislikes: dislikes + dislikes}) do
       {:ok, message} ->
         message = Repo.preload(message, [:user])
 
