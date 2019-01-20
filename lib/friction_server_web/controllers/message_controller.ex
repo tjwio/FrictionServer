@@ -22,4 +22,21 @@ defmodule FrictionServerWeb.MessageController do
     end
   end
 
+  def add_dislikes(conn, %{"id" => message_id, "dislikes" => dislikes}) do
+    message = Clashes.get_message!(message_id)
+
+    case Clashes.update_message(message, %{dislikes: message.dislikes + dislikes}) do
+      {:ok, message} ->
+        message = Repo.preload(message, [:user])
+
+        FrictionServerWeb.Endpoint.broadcast("room:lobby", "dislikes", Clashes.Message.map(message))
+
+        conn
+        |> send_resp(200, Poison.encode!(message))
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> send_resp(400, Poison.encode!(message: "Failed to update message"))
+    end
+  end
+
 end
