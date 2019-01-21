@@ -6,6 +6,7 @@ defmodule FrictionServerWeb.MessageController do
   use FrictionServerWeb, :controller
 
   def add_claps(conn, %{"id" => message_id, "claps" => claps}) do
+    user = FrictionServer.Authentication.Guardian.Plug.current_resource(conn)
     message = Clashes.get_message!(message_id)
 
     case Clashes.update_message(message, %{claps: message.claps + claps}) do
