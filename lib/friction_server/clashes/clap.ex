@@ -23,6 +23,7 @@ defmodule FrictionServer.Clashes.Clap do
     |> validate_required([:claps, :user_id, :message_id])
     |> assoc_constraint(:user)
     |> assoc_constraint(:message)
+    |> unique_constraint(:user, name: :user_message_index)
   end
 
 end
