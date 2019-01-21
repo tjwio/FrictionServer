@@ -5,21 +5,21 @@ defmodule FrictionServerWeb.MessageController do
 
   use FrictionServerWeb, :controller
 
-  def add_claps(conn, %{"id" => message_id, "claps" => claps}) do
+  def add_claps(conn, %{"id" => message_id, "claps" => claps} = attrs) do
     user = FrictionServer.Authentication.Guardian.Plug.current_resource(conn)
     message = Clashes.get_message!(message_id)
 
-    case Clashes.update_message(message, %{claps: message.claps + claps}) do
-      {:ok, message} ->
-        message = Repo.preload(message, [:user])
+    case Clashes.create_clap(user, %{claps: claps, message_id: message_id}) do
+      {:ok, clap} ->
+        message = Repo.preload(message, [:user, :claps])
 
         FrictionServerWeb.Endpoint.broadcast("room:lobby", "claps", Clashes.Message.map(message))
 
         conn
-        |> send_resp(200, Poison.encode!(message))
-      {:error, %Ecto.Changeset{} = changeset} ->
+        |> send_resp(200, Poison.encode!(clap))
+      {:error, _error} ->
         conn
-        |> send_resp(400, Poison.encode!(message: "Failed to update message"))
+        |> send_resp(400, Poison.encode!(%{message: "Failed to add claps"}))
     end
   end
 
