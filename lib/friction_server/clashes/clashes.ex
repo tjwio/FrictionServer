@@ -40,6 +40,8 @@ defmodule FrictionServer.Clashes do
 
   def get_vote!(id), do: Repo.get!(Vote, id)
 
+  def get_clap!(id), do: Repo.get!(Clap, id)
+
   def get_latest_poll! do
     Repo.one!(from x in Poll, order_by: [desc: x.inserted_at], limit: 1)
     |> Repo.preload([:options, options: :votes])
@@ -134,6 +136,12 @@ defmodule FrictionServer.Clashes do
   def update_message(%Message{} = message, attrs) do
     message
     |> Message.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def update_clap(%Clap{} = clap, attrs) do
+    clap
+    |> Clap.changeset(attrs)
     |> Repo.update()
   end
 
