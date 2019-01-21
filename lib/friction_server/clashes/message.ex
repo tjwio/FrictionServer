@@ -35,9 +35,15 @@ defmodule FrictionServer.Clashes.Message do
       dislikes: message.dislikes, poll_id: message.poll_id, option_id: message.option_id, name: message.user.name, image_url: message.user.image_url, inserted_at: message.inserted_at}
   end
 
+  def map(message, user_id) do
+    ret = map(message)
+
+    Map.put(ret, :added_clap, Enum.find(message.claps, fn clap -> clap.user_id == user_id end))
+  end
+
   defimpl Poison.Encoder, for: FrictionServer.Clashes.Message do
     def encode(message, options) do
-      Poison.Encoder.Map.encode(FrictionServer.Clashes.Message.map(message), options)
+      Poison.Encoder.Map.encode(FrictionServer.Clashes.Message.map(message, options[:user_id]), options)
     end
   end
 end

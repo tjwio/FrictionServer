@@ -5,7 +5,7 @@ defmodule FrictionServer.Clashes.Clap do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
-  @derive {Poison.Encoder, except: [:__meta__, :user_id]}
+  @derive {Poison.Encoder, except: [:__meta__, :user_id, :user, :message]}
 
   schema "claps" do
     field :claps, :integer, default: 0
@@ -17,8 +17,8 @@ defmodule FrictionServer.Clashes.Clap do
   end
 
   @doc false
-  def changeset(message, attrs) do
-    message
+  def changeset(clap, attrs) do
+    clap
     |> cast(attrs, [:claps, :user_id, :message_id])
     |> validate_required([:claps, :user_id, :message_id])
     |> assoc_constraint(:user)
