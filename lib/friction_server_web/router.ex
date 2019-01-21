@@ -48,6 +48,7 @@ defmodule FrictionServerWeb.Router do
     post "/messages/:id/dislikes", MessageController, :add_dislikes
 
     put "/messages/:message_id/claps/:clap_id", MessageController, :update_claps
+    put "/messages/:message_id/dislikes/:dislike_id", MessageController, :update_dislikes
 
     post "/upload/image", UploadController, :upload
   end
