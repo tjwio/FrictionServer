@@ -6,7 +6,7 @@ defmodule FrictionServer.Clashes do
   import Ecto.Query, warn: false
   alias FrictionServer.Repo
 
-  alias FrictionServer.Clashes.{Clap, Message, Poll, Vote}
+  alias FrictionServer.Clashes.{Clap, Dislike, Message, Poll, Vote}
 
   @doc """
   Returns the list of polls.
@@ -42,6 +42,8 @@ defmodule FrictionServer.Clashes do
 
   def get_clap!(id), do: Repo.get!(Clap, id)
 
+  def get_dislike!(id), do: Repo.get!(Dislike, id)
+
   def get_latest_poll! do
     Repo.one!(from x in Poll, order_by: [desc: x.inserted_at], limit: 1)
     |> Repo.preload([:options, options: :votes])
@@ -56,7 +58,7 @@ defmodule FrictionServer.Clashes do
   def get_message!(id), do: Repo.get!(Message, id)
 
   def get_messages(poll) do
-    poll = Repo.preload poll, [:messages, messages: [:user, :claps]]
+    poll = Repo.preload poll, [:messages, messages: [:user, :claps, :dislikes]]
 
     poll.messages
   end
@@ -109,6 +111,13 @@ defmodule FrictionServer.Clashes do
     |> Repo.insert()
   end
 
+  def create_dislike(user, attrs) do
+    attrs = attrs |> Map.put(:user_id, user.id)
+    %Dislike{}
+    |> Dislike.changeset(attrs)
+    |> Repo.insert()
+  end
+
   @doc """
   Updates a poll.
 
@@ -142,6 +151,12 @@ defmodule FrictionServer.Clashes do
   def update_clap(%Clap{} = clap, attrs) do
     clap
     |> Clap.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def update_dislike(%Dislike{} = dislike, attrs) do
+    dislike
+    |> Dislike.changeset(attrs)
     |> Repo.update()
   end
 
