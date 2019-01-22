@@ -9,11 +9,12 @@ defmodule FrictionServer.Clashes.Message do
 
   schema "messages" do
     field :message, :string
-    field :claps, :integer, default: 0
-    field :dislikes, :integer, default: 0
     belongs_to :poll, FrictionServer.Clashes.Option, foreign_key: :poll_id
     belongs_to :option, FrictionServer.Clashes.Option, foreign_key: :option_id
     belongs_to :user, FrictionServer.Accounts.User, foreign_key: :user_id
+
+    has_many :claps, FrictionServer.Clashes.Clap
+    has_many :dislikes, FrictionServer.Clashes.Dislike
 
     timestamps()
   end
@@ -29,12 +30,25 @@ defmodule FrictionServer.Clashes.Message do
   end
 
   def map(message) do
-    %{id: message.id, message: message.message, claps: message.claps, dislikes: message.dislikes, poll_id: message.poll_id, option_id: message.option_id, name: message.user.name, image_url: message.user.image_url, inserted_at: message.inserted_at}
+    %{id: message.id, message: message.message,
+      claps: Enum.sum(Enum.map(message.claps, fn clap -> clap.claps end)),
+      dislikes: Enum.sum(Enum.map(message.dislikes, fn dislike -> dislike.dislikes end)),
+      poll_id: message.poll_id, option_id: message.option_id, name: message.user.name, image_url: message.user.image_url, inserted_at: message.inserted_at}
+  end
+
+  def map(message, user_id) do
+    ret =
+    map(message)
+    |> Map.merge(%{
+      added_clap: Enum.find(message.claps, fn clap -> clap.user_id == user_id end),
+      added_dislike: Enum.find(message.dislikes, fn dislike -> dislike.user_id == user_id end)
+    })
   end
 
   defimpl Poison.Encoder, for: FrictionServer.Clashes.Message do
     def encode(message, options) do
-      Poison.Encoder.Map.encode(FrictionServer.Clashes.Message.map(message), options)
+      user_id = options |> Keyword.get(:user_id)
+      Poison.Encoder.Map.encode(FrictionServer.Clashes.Message.map(message, user_id), options)
     end
   end
 end
