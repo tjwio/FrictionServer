@@ -6,7 +6,7 @@ defmodule FrictionServerWeb.PollController do
   use FrictionServerWeb, :controller
 
   alias FrictionServer.Clashes
-  alias FrictionServer.Clashes.{Poll, Option}
+  alias FrictionServer.Clashes.{Message, Poll, Option}
 
   def show(conn, %{"id" => poll_id}) do
     poll = Clashes.get_poll!(poll_id)
@@ -30,11 +30,12 @@ defmodule FrictionServerWeb.PollController do
   end
 
   def get_messages(conn, %{"id" => poll_id}) do
+    user = FrictionServer.Authentication.Guardian.Plug.current_resource(conn)
     poll = Clashes.get_poll!(poll_id)
     messages = Clashes.get_messages(poll)
 
     conn
-    |> send_resp(200, Poison.encode!(messages))
+    |> send_resp(200, Poison.encode!(messages, [{:user_id, user.id}]))
   end
 
   def get_stats(conn, %{"id" => poll_id}) do
