@@ -16,7 +16,7 @@ defmodule FrictionServerWeb.RoomChannel do
   def handle_in("shout", payload, socket) do
     case FrictionServer.Clashes.create_message(payload) do
       {:ok, message} ->
-        message = FrictionServer.Repo.preload(message, [:user])
+        message = FrictionServer.Repo.preload(message, [:user, :claps, :dislikes])
         broadcast socket, "shout", FrictionServer.Clashes.Message.map(message)
         {:noreply, socket}
       {:error, _error} ->
