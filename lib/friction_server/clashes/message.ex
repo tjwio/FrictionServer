@@ -22,7 +22,7 @@ defmodule FrictionServer.Clashes.Message do
   @doc false
   def changeset(message, attrs) do
     message
-    |> cast(attrs, [:message, :claps, :dislikes, :poll_id, :option_id, :user_id])
+    |> cast(attrs, [:message, :poll_id, :option_id, :user_id])
     |> validate_required([:message, :poll_id, :option_id, :user_id])
     |> assoc_constraint(:user)
     |> assoc_constraint(:option)
