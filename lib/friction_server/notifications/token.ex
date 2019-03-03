@@ -3,6 +3,7 @@ defmodule FrictionServer.Notifications.Token do
   import Ecto.Changeset
 
   @derive {Poison.Encoder, except: [:__meta__, :user, :user_id]}
+  @foreign_key_type :binary_id
 
   schema "tokens" do
     field :token, :string
