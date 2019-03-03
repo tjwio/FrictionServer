@@ -4,13 +4,18 @@ defmodule FrictionServerWeb.TokenController do
   alias FrictionServer.Notifications
   alias FrictionServer.Notifications.Token
 
-  def add_token(conn, %{"token" => token} = params) do
+  def add_token(conn, %{"token" => token, "user_id" => user_id} = params) do
     case Notifications.get_token_by_token(token) do
       nil ->
         add_new_token(conn, params)
       token ->
-        conn
-        |> send_resp(200, Poison.encode!(token))
+        cond do
+          token.user_id != user_id ->
+            update_token(conn, token, params)
+          true ->
+            conn
+            |> send_resp(200, Poison.encode!(token))
+        end
     end
   end
 
