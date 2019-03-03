@@ -12,7 +12,7 @@ defmodule FrictionServer.Clashes.Option do
     field :name, :string
     field :vote_count, :integer, default: 0, virtual: true
     belongs_to :poll, FrictionServer.Clashes.Poll
-    has_many :votes, FrictionServer.Clashes.Vote, foreign_key: :option_id
+    has_many :votes, FrictionServer.Clashes.Vote, foreign_key: :option_id, on_delete: :delete_all
     has_many :messages, FrictionServer.Clashes.Message
 
     timestamps()
