@@ -37,6 +37,8 @@ defmodule FrictionServer.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  def get_user_by_username(username), do: Repo.get_by(User, name: username)
+
   def get_authenticated_user(email, password) do
     case Repo.get_by(User, email: email) do
       nil ->
