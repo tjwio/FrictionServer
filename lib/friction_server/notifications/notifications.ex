@@ -116,7 +116,7 @@ defmodule FrictionServer.Notifications do
   end
 
   def send_notification_to_users([head | tail], message) do
-    user = Repo.preload user, :tokens
+    user = Repo.preload head, :tokens
     user.tokens
     |> Enum.each(fn token -> send_notification(message, token.token) end)
 
