@@ -19,7 +19,7 @@ defmodule FrictionServerWeb.RoomChannel do
         message = FrictionServer.Repo.preload(message, [:user, :claps, :dislikes])
 
         FrictionServer.Notifications.send_notification_to_users(FrictionServer.Clashes.Message.get_users_from_message(message.message),
-          message.user.name ++ " just replied to you! " ++ message.message)
+          message.user.name <> " just replied to you! " <> message.message)
 
         broadcast socket, "shout", FrictionServer.Clashes.Message.map(message)
         {:noreply, socket}
