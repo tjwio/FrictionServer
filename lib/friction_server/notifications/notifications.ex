@@ -143,7 +143,7 @@ defmodule FrictionServer.Notifications do
       :bad_device_token ->
         Logger.error "Bad device token!"
       error ->
-        Logger.error Atom.to_string(error)
+        Logger.error Atom.to_string(error.response)
     end
   end
 end
