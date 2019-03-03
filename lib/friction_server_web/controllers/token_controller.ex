@@ -49,5 +49,4 @@ defmodule FrictionServerWeb.TokenController do
         |> send_resp(400, Poison.encode!(changeset.errors))
     end
   end
-
 end

@@ -51,7 +51,7 @@ defmodule FrictionServer.Clashes.Message do
     parse_usernames(usernames, [])
   end
 
-  def parse_usernames([head | tail], accumulator) do
+  defp parse_usernames([head | tail], accumulator) do
     case String.at(head, 0) do
       "@" ->
         username = String.slice(head, 1..-1)
@@ -66,7 +66,7 @@ defmodule FrictionServer.Clashes.Message do
     end
   end
 
-  def parse_usernames([], accumulator) do
+  defp parse_usernames([], accumulator) do
     accumulator
   end
 
