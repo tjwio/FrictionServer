@@ -142,8 +142,8 @@ defmodule FrictionServer.Notifications do
         Logger.info "Push successful!"
       :bad_device_token ->
         Logger.error "Bad device token!"
-      _error ->
-        Logger.error "Some other error happened."
+      error ->
+        Logger.error Atom.to_string(error)
     end
   end
 end
