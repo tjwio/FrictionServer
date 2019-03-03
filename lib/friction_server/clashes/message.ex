@@ -45,6 +45,31 @@ defmodule FrictionServer.Clashes.Message do
     })
   end
 
+  def get_users_from_message(message) do
+    usernames = String.split(message, " ")
+
+    parse_usernames(usernames, [])
+  end
+
+  defp parse_usernames([head | tail], accumulator) do
+    case String.at(head, 0) do
+      "@" ->
+        username = String.slice(head, 1..-1)
+        case FrictionServer.Accounts.get_user_by_username(username) do
+          user ->
+            parse_usernames(tail, accumulator ++ [user])
+          nil ->
+            parse_usernames(tail, accumulator)
+        end
+      _ ->
+        parse_usernames(tail, accumulator)
+    end
+  end
+
+  defp parse_usernames([], accumulator) do
+    accumulator
+  end
+
   defimpl Poison.Encoder, for: FrictionServer.Clashes.Message do
     def encode(message, options) do
       user_id = options |> Keyword.get(:user_id)

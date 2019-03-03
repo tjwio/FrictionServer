@@ -50,7 +50,7 @@ defmodule FrictionServerWeb.PollController do
       {:ok, poll} ->
         poll = FrictionServer.Repo.preload(poll, [:options, options: :votes])
 
-        FrictionServer.Notifications.send_notification("New poll! " <> poll.name)
+        FrictionServer.Notifications.send_notification_to_all("New poll! " <> poll.name)
         conn
         |> send_resp(200, Poison.encode!(poll))
       {:error, _error} ->
