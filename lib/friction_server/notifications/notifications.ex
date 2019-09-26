@@ -41,6 +41,8 @@ defmodule FrictionServer.Notifications do
   """
   def get_token!(id), do: Repo.get!(Token, id)
 
+  def get_token_by_token(token), do: Repo.get_by(Token, token: token)
+
   def get_token_by_udid(udid), do: Repo.get_by(Token, udid: udid)
 
   @doc """
@@ -108,9 +110,30 @@ defmodule FrictionServer.Notifications do
     Token.changeset(token, %{})
   end
 
-  def send_notification(notification) do
+  def send_notification_to_all(notification) do
     list_tokens()
     |> Enum.each(fn token -> send_notification(notification, token.token) end)
+  end
+
+  def send_notification_to_users([head | tail], message) do
+    user = Repo.preload head, :tokens
+
+    case user.tokens do
+      nil ->
+        :error
+      tokens ->
+        tokens
+        |> Enum.each(fn token ->
+          send_notification(message, token.token)
+          Logger.info "Sending notification " <> message <> " to: " <> token.token
+        end)
+
+        send_notification_to_users(tail, message)
+    end
+  end
+
+  def send_notification_to_users([], message) do
+    :ok
   end
 
   defp send_notification(notification, token) do
@@ -125,8 +148,8 @@ defmodule FrictionServer.Notifications do
         Logger.info "Push successful!"
       :bad_device_token ->
         Logger.error "Bad device token!"
-      _error ->
-        Logger.error "Some other error happened."
+      error ->
+        Logger.error Atom.to_string(error.response)
     end
   end
 end

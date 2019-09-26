@@ -131,5 +131,33 @@
     <orderEntry type="library" name="sweet_xml" level="project" />
     <orderEntry type="library" name="bypass" level="project" />
     <orderEntry type="library" name="uuid" level="project" />
+    <orderEntry type="library" name="ex_doc" level="project" />
+    <orderEntry type="library" name="inch_ex" level="project" />
+    <orderEntry type="library" name="phoenix_guides" level="project" />
+    <orderEntry type="library" name="websocket_client" level="project" />
+    <orderEntry type="library" name="dialyze" level="project" />
+    <orderEntry type="library" name="earmark" level="project" />
+    <orderEntry type="library" name="dialyxir" level="project" />
+    <orderEntry type="library" name="credo" level="project" />
+    <orderEntry type="library" name="excoveralls" level="project" />
+    <orderEntry type="library" name="argon2_elixir" level="project" />
+    <orderEntry type="library" name="pbkdf2_elixir" level="project" />
+    <orderEntry type="library" name="benchfella" level="project" />
+    <orderEntry type="library" name="jiffy" level="project" />
+    <orderEntry type="library" name="exjsx" level="project" />
+    <orderEntry type="library" name="json" level="project" />
+    <orderEntry type="library" name="jazz" level="project" />
+    <orderEntry type="library" name="bypass" level="project" />
+    <orderEntry type="library" name="mariaex" level="project" />
+    <orderEntry type="library" name="sbroker" level="project" />
+    <orderEntry type="library" name="cutkey" level="project" />
+    <orderEntry type="library" name="jsone" level="project" />
+    <orderEntry type="library" name="jsx" level="project" />
+    <orderEntry type="library" name="libdecaf" level="project" />
+    <orderEntry type="library" name="libsodium" level="project" />
+    <orderEntry type="library" name="ojson" level="project" />
+    <orderEntry type="library" name="mimic" level="project" />
+    <orderEntry type="library" name="httparrot" level="project" />
+    <orderEntry type="library" name="keccakf1600" level="project" />
   </component>
 </module>

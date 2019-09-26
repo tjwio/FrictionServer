@@ -10,8 +10,8 @@ defmodule FrictionServer.Clashes.Poll do
 
   schema "polls" do
     field :name, :string
-    has_many :options, FrictionServer.Clashes.Option
-    has_many :messages, FrictionServer.Clashes.Message
+    has_many :options, FrictionServer.Clashes.Option, on_delete: :delete_all
+    has_many :messages, FrictionServer.Clashes.Message, on_delete: :delete_all
 
     timestamps()
   end
